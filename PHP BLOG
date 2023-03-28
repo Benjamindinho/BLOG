@@ -1,0 +1,51 @@
+<?php
+$servername = "localhost"; // nom du serveur
+$username = "username"; // nom d'utilisateur de la base de données
+$password = "password"; // mot de passe de la base de données
+
+// création d'une connexion
+$conn = new mysqli($servername, $username, $password);
+
+// vérification de la connexion
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// création d'une requête SQL pour créer une base de données
+$sql = "CREATE DATABASE mydatabase";
+
+// exécution de la requête SQL
+if ($conn->query($sql) === TRUE) {
+  echo "Database created successfully";
+} else {
+  echo "Error creating database: " . $conn->error;
+}
+
+// fermeture de la connexion
+$conn->close();
+?>
+base de donnée
+<?php
+
+// Connexion à la base de données
+$connexion = new mysqli("localhost", "nom_utilisateur", "mot_de_passe", "nom_base_de_données");
+
+// Vérification de la connexion
+if ($connexion->connect_error) {
+    die("La connexion a échoué : " . $connexion->connect_error);
+}
+
+// Récupération des articles les plus récents
+$resultat = $connexion->query("SELECT * FROM articles ORDER BY date DESC LIMIT 10");
+
+// Affichage des articles
+while ($article = $resultat->fetch_assoc()) {
+    echo "<h2>" . $article["titre"] . "</h2>";
+    echo "<p>" . $article["contenu"] . "</p>";
+    echo "<p>Publié le " . $article["date"] . "</p>";
+}
+
+// Fermeture de la connexion
+$connexion->close();
+
+?>
